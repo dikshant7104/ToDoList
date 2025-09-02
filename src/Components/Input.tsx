@@ -1,5 +1,6 @@
 import React,{useRef} from "react";
 import './styles.css'
+import { Button } from 'reactstrap';
 import { CgSandClock } from "react-icons/cg";
 
 interface Props{
@@ -18,9 +19,7 @@ export const InputData = ({todos,setTodos, addTodos}: Props) =>{
                 <input ref={inputRef}
                  type="input" placeholder="Enter your task" className="input_field"
                 value={todos} onChange={(e)=>setTodos(e.target.value)} />
-            <button type="submit" className="sub_button">
-                <CgSandClock />
-            </button>
+            <Button type="submit" className="sub_button" color="primary"><CgSandClock /></Button>
             </form>
 
         </div>
