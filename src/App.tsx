@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './Index.css'
-import { ToDoList } from './ToDoList'
 import { InputData } from './Components/Input'
 import {type Todo } from './Components/model'
 import { List } from './Components/list'
@@ -24,7 +23,6 @@ console.log(todolist);
         <span className="heading">To-Do List </span>
         <InputData todos={todos} setTodos={setTodos} addTodos={addTodos} />
         <List todolist={todolist} setTodolist={setTodolist} />
-        {/* {todolist.map((todos)=>(<li key={todos.id}>{todos.task}</li>))} */}
         </div>
     </>
   )
