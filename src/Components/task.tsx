@@ -1,32 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { type Todo } from "./model";
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { MdOutlineDownloadDone } from "react-icons/md";
 import './styles.css';
 import { Button } from 'reactstrap'; 
+import { deleteTodoAction, editTodoAction ,completeTodoAction } from './list';
+import type { Actions } from './Reducer';
 
 interface Props {
   todos: Todo;
-  dispatch: React.Dispatch<
-    { type: 'delete', payload: number } |
-    { type: 'completed', payload: number } |
-    { type: 'edit', payload: {id:number, task:string} }
-  >;
+ dispatch : (action: Actions) => void;
 }
 
 export const Task: React.FC<Props> = ({ todos, dispatch }) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editedTask, setEditedTask] = useState<string>(todos.task)
-  const editRef = useRef<HTMLInputElement>(null);
+  // const editRef = useRef<HTMLInputElement>(null);
 
+  // Focus input when entering edit mode without useRef.
   useEffect(() => {
-    editRef.current?.focus();
+    if (edit) {
+      document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
+    }
   }, [edit]);
-
   const handleEdit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch({ type: 'edit', payload: { id: todos.id, task: editedTask } })
+    dispatch(editTodoAction(todos.id, editedTask))
     setEdit(false);
   }
 
@@ -36,7 +36,6 @@ export const Task: React.FC<Props> = ({ todos, dispatch }) => {
         edit ? (
           <input
             type="text"
-            ref={editRef}
             value={editedTask}
             onChange={(e) => setEditedTask(e.target.value)}
           />
@@ -47,8 +46,8 @@ export const Task: React.FC<Props> = ({ todos, dispatch }) => {
 
       <div>
         <Button className='icon' color='warning' disabled={todos.isCompleted} onClick={() => { if(!edit && !todos.isCompleted){ setEdit(true) }}}><TbEdit/></Button>
-        <Button className='icon' color='warning' onClick={() => dispatch({ type: 'delete', payload: todos.id })}><RiDeleteBinFill /></Button>
-        <Button className='icon' color='warning' onClick={() => dispatch({ type: 'completed', payload: todos.id })}><MdOutlineDownloadDone /></Button>
+        <Button className='icon' color='warning' onClick={() => dispatch(deleteTodoAction(todos.id))}><RiDeleteBinFill /></Button>
+        <Button className='icon' color='warning' onClick={() => dispatch(completeTodoAction(todos.id))}><MdOutlineDownloadDone /></Button>
       </div>
     </form>
   )
