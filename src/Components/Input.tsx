@@ -1,26 +1,33 @@
-import React,{useRef} from "react";
+import React,{useRef,useState} from "react";
 import './styles.css'
+import { Button } from 'reactstrap';
 import { CgSandClock } from "react-icons/cg";
+import { addTodoAction } from "./list";
+import type { Actions } from './Reducer';
 
 interface Props{
-    todos: string;
-    setTodos: React.Dispatch<React.SetStateAction<string>>;
-    addTodos: (e: React.FormEvent<HTMLFormElement>) => void;
+    // todos: string;
+    dispatch : (action: Actions) => void;
 }
-export const InputData = ({todos,setTodos, addTodos}: Props) =>{
+export const InputData = ({dispatch}: Props) =>{
 
-    const inputRef = useRef<HTMLInputElement>(null)
+
+    const [input, setInput] = useState('');
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+       if (input.trim()) {
+            dispatch(addTodoAction(input));
+            setInput('');
+           
+        }
+    }
     return <>
         <div>
-            <form action="" className="input" onSubmit={(e)=>{
-                inputRef.current?.blur();
-                addTodos(e)}}> 
-                <input ref={inputRef}
+            <form action="" className="input" onSubmit={handleSubmit}> 
+                <input 
                  type="input" placeholder="Enter your task" className="input_field"
-                value={todos} onChange={(e)=>setTodos(e.target.value)} />
-            <button type="submit" className="sub_button">
-                <CgSandClock />
-            </button>
+                value={input} onChange={(e)=>setInput(e.target.value)} />
+            <Button type="submit" className="sub_button" color="primary"><CgSandClock /></Button>
             </form>
 
         </div>

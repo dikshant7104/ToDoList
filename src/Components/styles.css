@@ -44,58 +44,6 @@
      transform: scale(0.8);
   box-shadow: 0 0 5px black;
 }
-
-
-/* 
-.task-form {
-    display: flex;
-    width: 100%;
-    border-radius: 5px;
-    margin-top: 15px;
-    background-image: url(https://static.vecteezy.com/system/resources/thumbnails/012/981/784/small/old-parchment-paper-sheet-vintage-aged-or-texture-background-png.png);
-    padding: 10px;
-    
-}
-.task-form:hover{
-    box-shadow: 0 0 5px black;
-  transform: scale(1.03);
-}
-
-.task-text {
-    flex-grow: 1;
-    padding: 5px;
-    border: none;
-    font-size: 20 px;
-    
-}
-
-.task-text:hover{
-    outline: none;
-}
-.icon {
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-@media (max-width: 1100px) {
-  .todos {
-    width: 45%;
-  }
-}
-
-@media (max-width: 700px) {
-  .input {
-    width: 95%;
-  }
-  .container {
-    width: 95%;
-    flex-direction: column;
-  }
-  .todos {
-    width: 95%;
-    margin-bottom: 10px;
-  }
-} */
  .task-form {
     display: flex;
     width: 100%;
@@ -103,7 +51,7 @@
     justify-content: space-between; 
     border-radius: 8px;            
     margin-top: 15px;
-    background-image: url(https://www.photos-public-domain.com/wp-content/uploads/2012/01/crumpled-yellow-paper-texture.jpg);
+    background-color: rgb(239, 227, 122);
     background-size: cover;         
     background-position: center;
     background-repeat: no-repeat;
