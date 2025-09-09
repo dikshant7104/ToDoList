@@ -1,58 +1,54 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { type Todo } from "./model";
 import { TbEdit } from "react-icons/tb";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { MdOutlineDownloadDone } from "react-icons/md";
 import './styles.css';
+import { Button } from 'reactstrap'; 
+import { deleteTodoAction, editTodoAction ,completeTodoAction } from './list';
+import type { Actions } from './Reducer';
+
 interface Props {
-    todos : Todo;
-    todolist: Todo[];
-        setTodolist: React.Dispatch<React.SetStateAction<Todo[]>>;
+  todos: Todo;
+ dispatch : (action: Actions) => void;
 }
-export const Task: React.FC<Props> = ({todos, todolist, setTodolist}) =>{
 
-    const [edit,setEdit] = useState<boolean>(false)
-    const [editedTask,setEditedTask] = useState<string>(todos.task)
+export const Task: React.FC<Props> = ({ todos, dispatch }) => {
+  const [edit, setEdit] = useState<boolean>(false)
+  const [editedTask, setEditedTask] = useState<string>(todos.task)
+  // const editRef = useRef<HTMLInputElement>(null);
 
-    const editRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        
-            editRef.current?.focus();
-        
-    }, [edit]); 
-
-    const isCompleted = (id: number) =>{
-        setTodolist(todolist.map((todos)=>todos.id === id ? {...todos, isCompleted: !todos.isCompleted} : todos))
+  // Focus input when entering edit mode without useRef.
+  useEffect(() => {
+    if (edit) {
+      document.querySelector<HTMLInputElement>('input[type="text"]')?.focus();
     }
-
-    const handleDelete = (id: number) =>{
-        setTodolist(todolist.filter((todos)=> todos.id !== id))
-    }
-
-    const handleEdit = (e: React.FormEvent,id: number)=>{
-       e.preventDefault();
-    setTodolist(todolist.map((todos)=> todos.id === id ? {...todos, task: editedTask} : todos))
+  }, [edit]);
+  const handleEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(editTodoAction(todos.id, editedTask))
     setEdit(false);
-}
-return (
-    <>
-<form className='task-form' onSubmit={(e)=>handleEdit(e,todos.id)}>
+  }
 
-{
-    edit ? (
-        <input type="text" ref={editRef} value={editedTask} onChange={(e) => setEditedTask(e.target.value)} />
-    ) : (
-        todos.isCompleted?(<s>{todos.task}</s>):(<span className='task-text'>{todos.task}</span>)
-    )
-}
+  return (
+    <form className='task-form' onSubmit={handleEdit}>
+      {
+        edit ? (
+          <input
+            type="text"
+            value={editedTask}
+            onChange={(e) => setEditedTask(e.target.value)}
+          />
+        ) : (
+          todos.isCompleted ? <s>{todos.task}</s> : <span className='task-text'>{todos.task}</span>
+        )
+      }
 
-<div>
-    <span className='icon' onClick={()=> {if(!edit && !todos.isCompleted){setEdit(!edit)}}}><TbEdit/></span>
-    <span className='icon' onClick={()=>handleDelete(todos.id)}><RiDeleteBinFill /></span>
-    <span className='icon' onClick={()=>isCompleted(todos.id)}><MdOutlineDownloadDone /></span>
-</div>
-</form>
-    </>
-)
+      <div>
+        <Button className='icon' color='warning' disabled={todos.isCompleted} onClick={() => { if(!edit && !todos.isCompleted){ setEdit(true) }}}><TbEdit/></Button>
+        <Button className='icon' color='warning' onClick={() => dispatch(deleteTodoAction(todos.id))}><RiDeleteBinFill /></Button>
+        <Button className='icon' color='warning' onClick={() => dispatch(completeTodoAction(todos.id))}><MdOutlineDownloadDone /></Button>
+      </div>
+    </form>
+  )
 }
