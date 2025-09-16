@@ -1,9 +1,5 @@
-
-
-export interface Todo{
-    id: number;
-    task: string;
-    isCompleted: boolean;
+export interface Todo {
+  id: number;
+  task: string;
+  isCompleted: boolean;
 }
-
-
