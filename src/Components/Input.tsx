@@ -17,6 +17,10 @@ export const InputData = ({ dispatch }: Props) => {
       setInput('');
     }
   };
+
+  const valueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
   return (
     <>
       <div>
@@ -26,7 +30,7 @@ export const InputData = ({ dispatch }: Props) => {
             placeholder="Enter your task"
             className="input_field"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={valueChange}
           />
           <Button type="submit" className="sub_button" color="primary">
             <CgSandClock />
