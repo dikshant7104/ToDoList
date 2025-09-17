@@ -1,10 +1,5 @@
 import { type Todo } from './model';
 
-// type Actions = {
-//  type : 'add',
-//  payload: string
-// } | {type : 'delete', payload: number} | {type : 'completed',payload: number} | {type : 'edit',payload:{id:number, task:string}}
-
 export type ActionPayload = {
   id: number;
   task: string;
