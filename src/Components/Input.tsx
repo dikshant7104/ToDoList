@@ -24,7 +24,7 @@ export const InputData = ({ dispatch }: Props) => {
   return (
     <>
       <div>
-        <form action="" className="input" onSubmit={handleSubmit}>
+        <form action="" className="input" onSubmit={handleSubmit} data-testid="input">
           <input
             type="input"
             placeholder="Enter your task"
