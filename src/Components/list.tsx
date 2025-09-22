@@ -11,7 +11,7 @@ interface ListProps {
 
 export const List: React.FC<ListProps> = ({ todolist, dispatch }) => {
   return (
-    <div className="list">
+    <div className="list" data-testid="list">
       {todolist.map((t) => (
         <Task key={t.id} todos={t} dispatch={dispatch} />
       ))}
