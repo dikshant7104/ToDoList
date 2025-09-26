@@ -43,7 +43,7 @@ export const Task: React.FC<Props> = ({ todos, dispatch }) => {
       <div>
         <Button
           className="icon"
-          data-testid="edit"
+          aria-label="edit"
           color="warning"
           disabled={todos.isCompleted}
           onClick={() => {
@@ -56,7 +56,7 @@ export const Task: React.FC<Props> = ({ todos, dispatch }) => {
         </Button>
         <Button
           className="icon"
-          data-testid="delete"
+          aria-label="delete"
           color="warning"
           onClick={() => dispatch(deleteTodoAction(todos.id))}
         >
@@ -64,7 +64,7 @@ export const Task: React.FC<Props> = ({ todos, dispatch }) => {
         </Button>
         <Button
           className="icon"
-          data-testid="complete"
+          aria-label="complete"
           color="warning"
           onClick={() => dispatch(completeTodoAction(todos.id))}
         >

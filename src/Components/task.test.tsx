@@ -1,0 +1,40 @@
+import { expect, describe, test, vi, beforeEach } from 'vitest';
+import { type Todo } from './model';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
+import { Task } from './task';
+import React from 'react';
+
+let mockDispatch: ReturnType<typeof vi.fn>;
+describe('Task component', () => {
+  const mockTodo: Todo = { id: 1, task: 'Test Task', isCompleted: false };
+  beforeEach(() => {
+    mockDispatch = vi.fn();
+    render(<Task todos={mockTodo} dispatch={mockDispatch} />);
+  });
+
+  test('renders task text', () => {
+    const taskText = screen.getByText('Test Task');
+    expect(taskText).toBeInTheDocument();
+  });
+
+  test('edit button enables edit mode', async () => {
+    const editButton = screen.getByRole('button', { name: /edit/i });
+    await userEvent.click(editButton);
+    const inputField = screen.getByDisplayValue('Test Task');
+    expect(inputField).toBeInTheDocument();
+  });
+
+  test('delete button calls dispatch', async () => {
+    const deleteButton = screen.getByRole('button', { name: /delete/i });
+    await userEvent.click(deleteButton);
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+
+  test('completing a task calls dispatch', async () => {
+    const completeButton = screen.getByRole('button', { name: /complete/i });
+    await userEvent.click(completeButton);
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+});
