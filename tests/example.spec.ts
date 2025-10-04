@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 const URL = 'http://localhost:5173';
 const PLACEHOLDER = 'Enter Your Task';
@@ -62,7 +63,6 @@ test.describe('List Function', () => {
 });
 
 // helper to add a task via the UI
-import type { Page } from '@playwright/test';
 
 async function addTask({ page }: { page: Page }, text: string) {
   const input = page.getByPlaceholder(PLACEHOLDER);
