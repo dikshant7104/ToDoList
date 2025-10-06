@@ -28,4 +28,4 @@ deploy:
   github_token: $GITHUB_TOKEN   # set this in Travis repo settings (secure)
   local_dir: dist               # Vite default build dir
   on:
-    branch: main                # change to your default branch if needed
+    branch: todo-test                # change to your default branch if needed
