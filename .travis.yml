@@ -27,5 +27,5 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUB_TOKEN   # set this in Travis repo settings (secure)
   local_dir: dist               # Vite default build dir
-  on:
-    branch: todo-test                # change to your default branch if needed
+  # on:
+  #   branch: todo-test                # change to your default branch if needed
