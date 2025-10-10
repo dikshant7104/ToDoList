@@ -13,6 +13,7 @@ test.describe('Input Function', () => {
       sessionStorage.clear();
     });
   });
+
   test('renders input and button', async ({ page }) => {
     await expect(page).toHaveTitle('To-Do-App');
     await expect(page.getByPlaceholder('Enter Your Task')).toBeVisible();
