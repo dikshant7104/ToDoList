@@ -1,6 +1,6 @@
 import { expect, describe, test } from 'vitest';
-import * as todoReducer from '../src/Components/Reducer';
-import { type Todo } from '../src/Components/model';
+import * as todoReducer from './Reducer';
+import { type Todo } from './model';
 describe('toDoReducer', () => {
   const initialState: Todo[] = [
     { id: 1, task: 'Add Todo', isCompleted: false },
