@@ -1,19 +1,20 @@
-import React from "react";
-import './styles.css'
-import { type Todo } from "./model";
-import { Task } from "./task";
+import React from 'react';
+import './styles.css';
+import { type Todo } from './model';
+import { Task } from './task';
+import type { Actions } from './Reducer';
 
-interface Props{
-    todolist: Todo[];
-    setTodolist: React.Dispatch<React.SetStateAction<Todo[]>>;
+interface ListProps {
+  todolist: Todo[];
+  dispatch: (action: Actions) => void;
 }
-export const List: React.FC<Props> = ({todolist,setTodolist}) => {
-    return (
-        <><div className="list">
 
-{todolist.map((todos)=>(<Task key={todos.id} todos={todos} todolist={todolist} setTodolist={setTodolist} />))}
-        </div>
-
-        </>
-    )
-}
+export const List: React.FC<ListProps> = ({ todolist, dispatch }) => {
+  return (
+    <div className="list" data-testid="list">
+      {todolist.map((t) => (
+        <Task key={t.id} todos={t} dispatch={dispatch} />
+      ))}
+    </div>
+  );
+};
