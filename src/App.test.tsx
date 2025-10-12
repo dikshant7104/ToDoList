@@ -7,15 +7,15 @@ const renderComponent = () => {
 };
 
 describe('App', () => {
-  it.only('renders the heading', () => {
-    const { getByText, debug } = renderComponent();
-    debug;
+  it('renders the heading', () => {
+    const { getByText } = renderComponent();
     expect(getByText(/To-Do List/i)).toBeInTheDocument();
   });
 
   it('renders InputData and List components', () => {
-    const { getByText } = renderComponent();
-    expect(getByText('Mock InputData')).toBeInTheDocument();
-    expect(getByText('Mock List')).toBeInTheDocument();
+    const { getByRole, getByTestId } = renderComponent();
+
+    expect(getByRole('textbox')).toBeInTheDocument();
+    expect(getByTestId('list')).toBeInTheDocument();
   });
 });
