@@ -4,6 +4,10 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    exclude: ['test/**', 'node_modules/**'],
+    exclude: ['tests/**', 'node_modules/**'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['lcov'],
+    },
   },
 });
