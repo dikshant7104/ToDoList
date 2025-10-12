@@ -4,6 +4,21 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    exclude: ['test/**', 'node_modules/**'],
+    setupFiles: './vitest.setup.ts',
+    exclude: ['tests/**', 'node_modules/**'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['lcov'],
+      exclude: ['src/main.tsx', 'src/main.test.tsx'],
+      include: ['src/**/*.{ts,tsx}'],
+      thresholds: {
+        statements: 95,
+        branches: 95,
+        functions: 95,
+        lines: 95,
+        perFile: true,
+        autoUpdate: true,
+      },
+    },
   },
 });

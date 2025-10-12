@@ -41,4 +41,9 @@ describe('toDoReducer', () => {
     expect(completeToDo).toBeDefined(); //To check if the completed ToDo is Completed or not
     expect(completeToDo?.isCompleted).toBe(true); //To check if the completed ToDo is marked as Completed or not
   });
+
+  test('Should do nothing', () => {
+    const newState = todoReducer.ToDoReducer(initialState, todoReducer.unknownAction());
+    expect(newState).toBe(initialState);
+  });
 });
