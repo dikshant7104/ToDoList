@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { Task } from './task';
-import React from 'react';
 
 let mockDispatch: ReturnType<typeof vi.fn>;
 describe('Task component', () => {
