@@ -9,11 +9,15 @@ jobs:
           command: yarn install
           name: Install dependencies
       - run:
+          command: yarn build
+          name: Build application
+      - run:
           command: yarn test
           name: Run tests
-      - run:
-          command: yarn build
-          name: Build app
       
+workflows:
+  version: 2    
+  build_and_test:
+    jobs:
+      - build_and_test
 
- 
