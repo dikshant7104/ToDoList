@@ -6,7 +6,7 @@ export type ActionPayload = {
 };
 
 export type Actions = {
-  type: 'add' | 'delete' | 'completed' | 'edit';
+  type: 'add' | 'delete' | 'completed' | 'edit' | 'UNKNOWN_ACTION';
   payload: ActionPayload;
 };
 
@@ -27,6 +27,11 @@ export const editTodoAction = (id: number, task: string): Actions => ({
 export const completeTodoAction = (id: number): Actions => ({
   type: 'completed',
   payload: { id, task: '' },
+});
+
+export const unknownAction = (): Actions => ({
+  type: 'UNKNOWN_ACTION',
+  payload: { id: 0, task: '' },
 });
 
 export const ToDoReducer = (state: Todo[], action: Actions) => {
