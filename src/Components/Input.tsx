@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './styles.css';
 import { Button } from 'reactstrap';
 import { CgSandClock } from 'react-icons/cg';

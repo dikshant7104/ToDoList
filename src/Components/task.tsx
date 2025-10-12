@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { type Todo } from './model';
 import { TbEdit } from 'react-icons/tb';
 import { RiDeleteBinFill } from 'react-icons/ri';
