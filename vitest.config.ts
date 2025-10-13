@@ -9,13 +9,13 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['lcov'],
-      exclude: ['src/main.tsx', 'src/main.test.tsx'],
+      exclude: ['src/main.tsx', 'src/main.test.tsx', 'src/vite-env.d.ts'],
       include: ['src/**/*.{ts,tsx}'],
       thresholds: {
-        statements: 95,
-        branches: 95,
-        functions: 95,
-        lines: 95,
+        statements: 100,
+        branches: 100,
+        functions: 100,
+        lines: 100,
         perFile: true,
         autoUpdate: true,
       },

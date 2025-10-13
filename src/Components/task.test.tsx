@@ -36,4 +36,21 @@ describe('Task component', () => {
     await userEvent.click(completeButton);
     expect(mockDispatch).toHaveBeenCalled();
   });
+
+  test('Handle edit form submission', async () => {
+    const editButton = screen.getByRole('button', { name: /edit/i });
+    await userEvent.click(editButton);
+    const inputField = screen.getByDisplayValue('Test Task');
+    await userEvent.clear(inputField);
+    await userEvent.type(inputField, 'Updated Task');
+    await userEvent.keyboard('{Enter}');
+    expect(mockDispatch).toHaveBeenCalled();
+  });
+
+  test('renders completed todo with strikethrough', () => {
+    const completedTodo = { id: 1, task: 'Completed Task', isCompleted: true };
+    const { getByText } = render(<Task todos={completedTodo} dispatch={mockDispatch} />);
+    const strikethrough = getByText('Completed Task');
+    expect(strikethrough.tagName).toBe('S');
+  });
 });
