@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import './Index.css';
+import './index.css';
 import { InputData } from './Components/Input';
 import { type Todo } from './Components/model';
 import { List } from './Components/list';
