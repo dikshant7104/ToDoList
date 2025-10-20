@@ -21,3 +21,27 @@ workflows:
     jobs:
       - build_and_test
 
+docs-deploy:
+  docker:
+    - image: cimg/node:16.17
+  steps:
+    - checkout
+    - attach_workspace:
+        at: docs/_build
+    - run:
+        name: Disable Jekyll for GitHub Pages
+        command: touch docs/_build/html/.nojekyll
+    - run:
+        name: Install gh-pages tool
+        command: yarn add gh-pages@3.2.3 --silent
+    - add_ssh_keys:
+        fingerprints:
+          - "SHA256:b+F7CHGKWu+25E1DFtOsGCECBcNJeQebINW+bF+3hoc"
+    - run:
+        name: Configure Git for deployment
+        command: |
+          git config --global user.email "dikshantbhosale@gmail.com"
+          git config --global user.name "dikshant7104"
+    - run:
+        name: Deploy documentation to GitHub Pages
+        command: npx gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
