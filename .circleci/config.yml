@@ -27,6 +27,9 @@ jobs:
       - run:
           name: Install gh-pages
           command: yarn global add gh-pages
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:b+F7CHGKWu+25E1DFtOsGCECBcNJeQebINW+bF+3hoc"
       - run:
           name: Configure Git
           command: |
