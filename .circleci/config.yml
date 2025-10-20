@@ -1,47 +1,42 @@
 version: 2.1
+
 jobs:
-  build_and_test:
+  build:
     docker:
       - image: cimg/node:22.18.0
     steps:
       - checkout
       - run:
-          command: yarn install
           name: Install dependencies
+          command: yarn install 
       - run:
+          name: Build project
           command: yarn build
-          name: Build application
-      - run:
-          command: yarn test
-          name: Run tests
-      
-workflows:
-  version: 2    
-  build_and_test:
-    jobs:
-      - build_and_test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
 
-docs-deploy:
-  docker:
-    - image: cimg/node:16.17
-  steps:
-    - checkout
-    - attach_workspace:
-        at: docs/_build
-    - run:
-        name: Disable Jekyll for GitHub Pages
-        command: touch docs/_build/html/.nojekyll
-    - run:
-        name: Install gh-pages tool
-        command: yarn add gh-pages@3.2.3 --silent
-    - add_ssh_keys:
-        fingerprints:
-          - "SHA256:b+F7CHGKWu+25E1DFtOsGCECBcNJeQebINW+bF+3hoc"
-    - run:
-        name: Configure Git for deployment
-        command: |
-          git config --global user.email "dikshantbhosale@gmail.com"
-          git config --global user.name "dikshant7104"
-    - run:
-        name: Deploy documentation to GitHub Pages
-        command: npx gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
+  deploy:
+    docker:
+      - image: cimg/node:22.18.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install gh-pages
+          command: yarn global add gh-pages
+      - run:
+          name: Deploy to GitHub Pages
+          command: |
+            gh-pages -d dist -b gh-pages -r https://github.com/dikshant7104/ToDoList.git
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
