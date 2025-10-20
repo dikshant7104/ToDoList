@@ -1,0 +1,47 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:22.18.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: yarn install 
+      - run:
+          name: Build project
+          command: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+  deploy:
+    docker:
+      - image: cimg/node:22.18.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install gh-pages
+          command: yarn global add gh-pages
+      - run:
+          name: Configure Git
+          command: |
+            git config --global user.name "dikshant7104"
+            git config --global user.email "dikshantbhosale@gmail.com"
+      - run:
+          name: Deploy to GitHub Pages
+          command: |
+            gh-pages -d dist -b gh-pages -r https://github.com/dikshant7104/ToDoList.git
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
