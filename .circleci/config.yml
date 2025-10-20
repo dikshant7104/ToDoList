@@ -29,7 +29,7 @@ jobs:
           command: yarn global add gh-pages
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:b+F7CHGKWu+25E1DFtOsGCECBcNJeQebINW+bF+3hoc"
+            - "SHA256:8H6xNKzlKfoH5HERchAY3XJ1X7+Z5wFDT5vNWt6YDXw"
       - run:
           name: Configure Git
           command: |
